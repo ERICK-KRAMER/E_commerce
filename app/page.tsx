@@ -11,11 +11,11 @@ export default function Home() {
       <Header />
       <Categories />
       <Search />
-      <div className="p-5 flex flex-col gap-3 my-8">
+      <div className="p-5 flex flex-col gap-3 my-4">
         <h1 className="text-5xl font-bold w-40">NEW COLLECTION</h1>
         <p className="w-20 font-medium">Summer 2024</p>
       </div>
-      <div className="p-2 flex overflow-auto [&::-webkit-scrollbar]:hidden">
+      <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
         <Card />
         <Card />
         <Card />
