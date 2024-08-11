@@ -30,7 +30,7 @@ export default function Home() {
 
       <div className="p-5">
         <button>
-          <Link href={"/"} className="flex flex-row gap-3 bg-gray-300 rounded-none p-3 items-center font-semibold">
+          <Link href={"/"} className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold">
             Go To Shop
             <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
           </Link>

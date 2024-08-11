@@ -3,10 +3,13 @@
 import Image from "next/image";
 import { Input } from "../components/ui/input";
 import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export default function Page() {
 
     const { back } = useRouter();
+    const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
@@ -36,16 +39,23 @@ export default function Page() {
                         required
                     />
 
-                    <Input
-                        className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="Password"
-                        type="password"
-                        required
-                    />
+                    <div className="relative">
+                        <Input
+                            className=" rounded-none border-neutral-300 outline-none"
+                            placeholder="Password"
+                            type={passwordVisible ? "text" : "password"}
+                            required
+                        />
+                        {passwordVisible ?
+                            <Eye className="absolute top-2 right-2 text-neutral-500 cursor-pointer" onClick={() => setPasswordVisible(prev => !prev)} />
+                            :
+                            <EyeOff className="absolute top-2 right-2 text-neutral-500 cursor-pointer" onClick={() => setPasswordVisible(prev => !prev)} />
+                        }
+                    </div>
 
                     <span className="text-sm text-blue-500 flex justify-end hover:underline cursor-pointer">Forget?</span>
 
-                    <button className="flex flex-row gap-3 bg-gray-300 rounded-none p-3 items-center font-semibold justify-between">
+                    <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between">
                         Submit
                         <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
                     </button>
