@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 const Header = () => {
     return (
         <>
-            <header className="flex flex-row py-4 px-4 items-center justify-between">
+            <header className="flex flex-row py-4 px-5 items-center justify-between">
                 <Button variant={"link"} size={"icon"}>
                     <Image
                         src="/menu.svg"
