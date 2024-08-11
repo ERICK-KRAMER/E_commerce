@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const Header = () => {
     return (
@@ -15,12 +16,14 @@ const Header = () => {
                 </Button>
             </div>
             <div className="flex-1 flex justify-center">
-                <Image
-                    src="/logo.svg"
-                    alt="Logo"
-                    width={40}
-                    height={40}
-                />
+                <Link href={"/"}>
+                    <Image
+                        src="/logo.svg"
+                        alt="Logo"
+                        width={40}
+                        height={40}
+                    />
+                </Link>
             </div>
             <div className="flex-1 flex justify-end items-center gap-1">
                 <Button variant={"link"} size={"icon"} className="border-4 border-black rounded-full flex justify-center items-center w-12 h-12">
@@ -32,12 +35,14 @@ const Header = () => {
                     />
                 </Button>
                 <Button variant={"link"} size={"icon"} className="bg-black rounded-full flex justify-center items-center w-12 h-12">
-                    <Image
-                        src="/user.svg"
-                        alt="User"
-                        width={16}
-                        height={16}
-                    />
+                    <Link href={"/sign-in"}>
+                        <Image
+                            src="/user.svg"
+                            alt="User"
+                            width={16}
+                            height={16}
+                        />
+                    </Link>
                 </Button>
             </div>
         </header>
