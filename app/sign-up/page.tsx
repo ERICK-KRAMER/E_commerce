@@ -1,26 +1,23 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import { Input } from "../components/ui/input";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import Link from "next/link";
+import { Input } from "../components/ui/input";
+import { EyeOff, Eye } from "lucide-react";
 
 export default function Page() {
-
-    const { back } = useRouter();
+    const router = useRouter();
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
-
             <button
                 className="py-7 px-5 absolute top-0"
-                onClick={back}
+                onClick={() => router.back()}
             >
                 <Image
-                    className=" w-16"
+                    className="w-16"
                     src={"/chevronLeft.svg"}
                     alt="Chevron-left"
                     width={40}
@@ -54,29 +51,42 @@ export default function Page() {
                         }
                     </div>
 
-                    <span className="text-sm text-blue-500 flex justify-end hover:underline cursor-pointer">Forget?</span>
+                    <p className="text-sm font-bold">SHIPPING ADDRESS</p>
 
-                    <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between">
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="First Name"
+                        required
+                    />
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="Country"
+                        required
+                    />
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="State/Region"
+                        required
+                    />
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="Address"
+                        required
+                    />
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="City"
+                        required
+                    />
+
+                    <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between my-4">
                         Submit
                         <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
                     </button>
 
-                    <button className="flex flex-row gap-3 bg-blue-600 rounded-none p-3 items-center font-semibold  justify-center text-white">
-                        <Image
-                            className=""
-                            src={"/google.svg"}
-                            alt="google_icon"
-                            width={20}
-                            height={20}
-                        />
-                        Enter with google account
-                    </button>
-
-                    <p className="text-sm text-center">Do not have an account? <Link href={"/sign-up"} className="text-blue-500 hover:underline cursor-pointer">Click here!</Link></p>
-
                 </form>
-
             </div>
+
         </div>
     )
 }
