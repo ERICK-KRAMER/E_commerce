@@ -14,7 +14,7 @@ const Filters = () => {
                 }, []).map((pair, index) => (
                     <div key={index} className="space-y-1">
                         {pair.map(item => item && (
-                            <div key={item.id} className="w-32 h-9 border-2 border-solid border-black text-black">
+                            <div key={item.id} className="w-32 h-9 border-2 border-solid border-neutral-500 text-neutral-500">
                                 <Button variant={"link"} className="w-full rounded-none h-full">{item.name}</Button>
                             </div>
                         ))}

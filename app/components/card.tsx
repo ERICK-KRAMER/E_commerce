@@ -1,6 +1,6 @@
 const Card = () => {
     return (
-        <div className="w-58 h-58 p-2 space-y-1">
+        <div className="w-48 h-58 p-2 space-y-1">
             <div className="w-44 h-48 border border-gray-300">
                 {/* Image */}
             </div>
