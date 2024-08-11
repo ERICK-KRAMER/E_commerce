@@ -53,11 +53,18 @@ export default function Page() {
 
                     <p className="text-sm font-bold">SHIPPING ADDRESS</p>
 
-                    <Input
-                        className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="First Name"
-                        required
-                    />
+                    <div className="flex gap-2">
+                        <Input
+                            className=" rounded-none border-neutral-300 outline-none"
+                            placeholder="First Name"
+                            required
+                        />
+                        <Input
+                            className=" rounded-none border-neutral-300 outline-none"
+                            placeholder="Last Name"
+                            required
+                        />
+                    </div>
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
                         placeholder="Country"
