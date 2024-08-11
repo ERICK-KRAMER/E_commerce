@@ -3,6 +3,7 @@ import { Card } from "./components/card";
 import { Categories } from "./components/categories";
 import { Header } from "./components/header";
 import { Search } from "./components/search";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -21,11 +22,13 @@ export default function Home() {
         <Card />
       </div>
       <div className="p-5">
-        <button className="flex flex-row gap-3 bg-gray-300 rounded-none p-3 items-center font-semibold">
-          Go To Shop
-          <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
+        <button>
+          <Link href={"/"} className="flex flex-row gap-3 bg-gray-300 rounded-none p-3 items-center font-semibold">
+            Go To Shop
+            <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
+          </Link>
         </button>
-      </div>
+      </div >
     </>
   );
 }
