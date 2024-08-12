@@ -4,11 +4,11 @@ import { Card, CardContent } from "./ui/card";
 const CartItem = () => {
     return (
         <>
-            <Card>
-                <CardContent className="flex flex-row p-3 w-full bg-green-400">
+            <Card className="rounded-none border-none">
+                <CardContent className="flex flex-row p-3 w-full rounded-none">
 
                     <Image
-                        className="bg-red-500 w-40 h-48"
+                        className=" w-40 h-48 border border-neutral-300"
                         src={""}
                         alt=""
                         width={100}
@@ -23,7 +23,7 @@ const CartItem = () => {
                                     Black/L
                                 </p>
                             </div>
-                            <p className=" font-bold underline text-sm">Change</p>
+                            <p className=" font-bold underline text-sm cursor-pointer h-fit">Change</p>
                         </div>
                         <span className="flex justify-between">
                             <p className="text-blue-800 font-bold text-sm">(1)</p>
