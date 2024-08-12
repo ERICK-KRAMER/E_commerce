@@ -3,7 +3,7 @@ import { CartItem } from "../components/cart-item";
 
 export default function Page() {
     return (
-        <section className="relative p-10">
+        <section className="relative p-2">
             <h1 className="text-lg font-bold p-4">YOUR ORDER</h1>
 
             <span className="text-blue-800 text-base font-bold absolute top-3 right-3">(2)</span>
@@ -12,7 +12,7 @@ export default function Page() {
 
             <CartItem />
 
-            <hr className="w-full h-px bg-neutral-300 my-5"></hr>
+            <hr className="w-full h-px bg-neutral-300 my-10"></hr>
 
             <div className="space-y-1">
                 <span className="flex justify-between">
@@ -33,7 +33,7 @@ export default function Page() {
             </span>
 
             <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between w-full my-10">
-                Submit
+                Shipping
                 <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
             </button>
         </section>

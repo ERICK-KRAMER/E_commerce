@@ -1,8 +1,17 @@
+import Image from "next/image";
+
 const Card = () => {
     return (
         <div className="w-48 h-58 p-2 space-y-1">
-            <div className="w-44 h-48 border border-gray-300">
+            <div className="w-40 h-48 border border-gray-300">
                 {/* Image */}
+                <Image
+                    src=""
+                    alt=""
+                    width={100}
+                    height={100}
+                    className="w-full h-full object-cover"
+                />
             </div>
             <div className="flex flex-col">
                 <small className="text-xs">Cotton T Shirt</small>
