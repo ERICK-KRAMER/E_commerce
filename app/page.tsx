@@ -5,6 +5,7 @@ import { Header } from "./components/header";
 import { Search } from "./components/search";
 import Link from "next/link";
 import { Footer } from "./components/footer";
+import { Button } from "./components/ui/button";
 
 export default function Home() {
   return (
@@ -21,6 +22,44 @@ export default function Home() {
       </div>
 
       <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+
+      <div className="p-5 flex flex-row items-center gap-1 my-4 font-extrabold">
+        <h1 className="text-5xl font-extrabold w-64">NEW THIS WEEK</h1>
+        <span className="text-blue-900 text-2xl">(50)</span>
+      </div>
+
+      <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+
+      <div className="p-5 flex flex-row items-center gap-1 my-4 font-extrabold">
+        <h1 className="text-5xl font-extrabold w-64">XIV COLECTIONS 23-24</h1>
+      </div>
+
+      <nav className="text-neutral-500">
+        <Button variant={"link"} className="">(All)</Button>
+        <Button variant={"link"} className="">Men</Button>
+        <Button variant={"link"} className="">Women</Button>
+        <Button variant={"link"} className="">Kids</Button>
+      </nav>
+
+      <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
+        <Card />
+        <Card />
         <Card />
         <Card />
         <Card />
