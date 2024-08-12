@@ -8,7 +8,7 @@ const CartItem = () => {
                 <CardContent className="flex flex-row p-3 w-full rounded-none">
 
                     <Image
-                        className=" w-40 h-48 border border-neutral-300"
+                        className=" w-44 h-52 border border-neutral-300"
                         src={""}
                         alt=""
                         width={100}
