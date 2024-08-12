@@ -31,8 +31,8 @@ export default function Page() {
                             <p>$180</p>
                         </span>
                         <span className="flex justify-between items-center">
-                            <p>Subtotal</p>
-                            <p>$180</p>
+                            <p>Shipping</p>
+                            <p>$10</p>
                         </span>
                     </div>
 
@@ -53,10 +53,10 @@ export default function Page() {
 
                     <button className="bg-neutral-300 rounded-none p-4 h-full items-center font-semibold w-full mt-10">
                         <Link href={"/cart/payment"} className="w-full">
-                            Shipping
+                            Submit
                         </Link>
                     </button>
-
+                    {/* Adicionar metodops de pagamento */}
                 </CardContent>
             </Card>
 
