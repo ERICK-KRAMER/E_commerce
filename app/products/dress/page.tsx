@@ -1,5 +1,4 @@
 import { Card } from "@/app/components/card";
-import { Filters } from "@/app/components/filters";
 import { Footer } from "@/app/components/footer";
 import { Header } from "@/app/components/header";
 import { Search } from "@/app/components/search";
@@ -29,7 +28,7 @@ export default async function Page() {
                 <h3 className="flex flex-row gap-2 text-lg font-extrabold items-center">Filters <ChevronRight /></h3>
             </div>
 
-            <Filters />
+            {/* <Filters /> */}
 
             <div className="grid grid-cols-2 p-2 px-4 place-items-center">
                 {Dress.map(item => (
