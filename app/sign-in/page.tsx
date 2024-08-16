@@ -7,12 +7,20 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function Page() {
+
+    type Inputs = {
+        email: string;
+        password: string;
+    };
 
     const { data: session, status } = useSession();
 
     const router = useRouter();
+
+    const { register, handleSubmit } = useForm<Inputs>();
 
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
@@ -24,6 +32,10 @@ export default function Page() {
         // Redirecionar para outra página se o usuário já estiver logado
         router.push('/');
         return null;
+    }
+
+    const Onsubmit: SubmitHandler<Inputs> = (data: any) => {
+        console.log(data);
     }
 
     console.log(session);
@@ -47,13 +59,17 @@ export default function Page() {
             <div className="p-5 flex flex-col gap-2">
                 <h1 className="font-extrabold text-3xl">Sign up</h1>
 
-                <form className="flex flex-col gap-2">
+                <form
+                    className="flex flex-col gap-2"
+                    onSubmit={handleSubmit(Onsubmit)}
+                >
                     <p className="text-sm font-bold">INFORMATION</p>
 
                     <Input
                         className="rounded-none border-neutral-300 outline-none"
                         placeholder="Email"
                         required
+                        {...register("email")}
                     />
 
                     <div className="relative">
@@ -62,6 +78,7 @@ export default function Page() {
                             placeholder="Password"
                             type={passwordVisible ? "text" : "password"}
                             required
+                            {...register("password")}
                         />
                         {passwordVisible ?
                             <Eye className="absolute top-2 right-2 text-neutral-500 cursor-pointer" onClick={() => setPasswordVisible(prev => !prev)} />
