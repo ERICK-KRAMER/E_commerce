@@ -1,14 +1,23 @@
-"use client";
-
 import { Button } from "@/app/components/ui/button";
+import { db } from "@/app/service/prismaCliet";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
-export default function Page() {
+interface ProductPropPage {
+    params: {
+        id: string
+    }
+}
 
-    const { back } = useRouter();
+export default async function Page({ params }: ProductPropPage) {
+
+    const product = await db.product.findFirst({
+        where: {
+            id: params.id
+        }
+    });
+
 
     return (
         <div className="">
@@ -16,7 +25,6 @@ export default function Page() {
 
                 <button
                     className=""
-                    onClick={back}
                 >
                     <Image
                         className=" w-16"
@@ -51,9 +59,9 @@ export default function Page() {
 
             <div>
                 <Image
-                    className="bg-emerald-200"
-                    src={""}
-                    alt=""
+                    className=""
+                    src={product ? product.image[0] : ""}
+                    alt={product ? product.name : ""}
                     width={500}
                     height={600}
                 />
@@ -61,24 +69,23 @@ export default function Page() {
 
             <div className="flex flex-col p-4">
                 <span className="flex justify-between">
-                    <h3 className="font-extrabold">ABSTRACT PRINT SHIRT</h3>
+                    <h3 className="font-extrabold">{product?.name}</h3>
                     <Heart />
                 </span>
                 <span className="flex justify-between py-2">
-                    <p className="text-neutral-500">MRP incl. of all taxes</p>
-                    <p className=" font-bold">$99</p>
+                    <p className="text-neutral-500">{product?.description}</p>
+                    <p className=" font-bold">$ {Number(product?.price)}</p>
                 </span>
-                <p className="text-sm font-bold pt-4 w-80">Relaxed-fit shirt. Camp collar and short sleeves. Button-up front.</p>
             </div>
 
             <div className="flex flex-col px-5 pb-5">
                 <h3 className="text-neutral-500">COLOR</h3>
                 <div className="flex gap-1">
-                    <span className="cursor-pointer bg-neutral-300 p-5"></span>
-                    <span className="cursor-pointer bg-neutral-400 p-5"></span>
-                    <span className="cursor-pointer bg-emerald-200 p-5"></span>
-                    <span className="cursor-pointer bg-white p-5"></span>
-                    <span className="cursor-pointer bg-blue-200 p-5"></span>
+                    <span className="cursor-pointer border-neutral-600 border bg-neutral-300 p-5"></span>
+                    <span className="cursor-pointer border-neutral-600 border bg-neutral-400 p-5"></span>
+                    <span className="cursor-pointer border-neutral-600 border bg-emerald-200 p-5"></span>
+                    <span className="cursor-pointer border-neutral-600 border bg-white p-5"></span>
+                    <span className="cursor-pointer border-neutral-600 border bg-blue-200 p-5"></span>
 
                 </div>
             </div>

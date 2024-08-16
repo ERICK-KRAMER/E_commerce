@@ -9,6 +9,7 @@ import Link from "next/link";
 export default async function Home() {
 
   const product = await db.product.findMany();
+
   const product2 = await db.product.findMany({
     orderBy: {
       price: "desc"
