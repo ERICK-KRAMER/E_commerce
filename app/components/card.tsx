@@ -19,8 +19,8 @@ const Card = ({ product }: ProductItem) => {
                 />
             </div>
             <div className="flex flex-col">
-                <small className="text-xs">{product?.description}</small>
-                <span className="flex flex-row justify-between">
+                <small className="text-xs truncate">{product?.description}</small>
+                <span className="flex flex-row justify-between text-nowrap">
                     <p className="font-semibold text-sm truncate">{product?.name}</p>
                     <p className="text-sm font-semibold">$ {Number(product?.price)}</p>
                 </span>
