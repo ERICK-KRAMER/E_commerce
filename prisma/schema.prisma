@@ -20,8 +20,7 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -40,11 +39,17 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
+  firstName     String?   @map("first_name")
+  lastName      String?   @map("last_name")
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
+  password      String?
   image         String?
+  address       String?
+  cep           String?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -56,4 +61,50 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Product {
+  id          String      @id @default(uuid())
+  name        String
+  description String
+  price       Decimal
+  image       String
+  quantity    Int
+  category_id String
+  category    Category?   @relation(fields: [category_id], references: [id])
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+
+  @@map("categories")
+}
+
+model Order {
+  id     String      @id @default(uuid())
+  userId String      @map("user_id")
+  user   User        @relation(fields: [userId], references: [id])
+  items  OrderItem[]
+  total  Decimal
+  status String
+  date   DateTime
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String  @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Decimal
+
+  @@map("order_items")
 }

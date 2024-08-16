@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { LogOut } from "lucide-react";
 
@@ -51,12 +51,15 @@ const Header = () => {
                                 </Button>
                                 {session?.user?.name ? session.user.name : "Faça Login"}
                             </Link>
-                            <Button
-                                variant={"ghost"}
-                                size={"icon"}
-                            >
-                                <LogOut color="red" />
-                            </Button>
+                            {session ? (
+                                <Button
+                                    variant={"ghost"}
+                                    size={"icon"}
+                                    onClick={() => signOut()}
+                                >
+                                    <LogOut color="red" />
+                                </Button>
+                            ) : null}
                         </span>
                     </SheetHeader>
                     <nav className="flex flex-col gap-3">
