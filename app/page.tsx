@@ -4,6 +4,7 @@ import { Header } from "./components/header";
 import { Search } from "./components/search";
 import { Footer } from "./components/footer";
 import { db } from "./service/prismaCliet";
+import Link from "next/link";
 
 export default async function Home() {
 
@@ -29,7 +30,9 @@ export default async function Home() {
 
       <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
         {product.map(item => (
-          <Card key={item.id} product={item} />
+          <Link key={item.id} href={`/products/${item.id}`}>
+            <Card key={item.id} product={item} />
+          </Link>
         ))}
       </div>
 
@@ -40,7 +43,9 @@ export default async function Home() {
 
       <div className="grid grid-cols-2 p-2 px-4 place-items-center">
         {product2.map(item => (
-          <Card key={item.id} product={item} />
+          <Link key={item.id} href={`/products/${item.id}`}>
+            <Card key={item.id} product={item} />
+          </Link>
         ))}
       </div>
 

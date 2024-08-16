@@ -4,6 +4,7 @@ import { Header } from "@/app/components/header";
 import { Search } from "@/app/components/search";
 import { db } from "@/app/service/prismaCliet";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export default async function Page() {
 
@@ -32,7 +33,9 @@ export default async function Page() {
 
             <div className="grid grid-cols-2 p-2 px-4 place-items-center">
                 {Dress.map(item => (
-                    <Card key={item.id} product={item} />
+                    <Link key={item.id} href={`/products/${item.id}`}>
+                        <Card key={item.id} product={item} />
+                    </Link>
                 ))}
             </div>
 
