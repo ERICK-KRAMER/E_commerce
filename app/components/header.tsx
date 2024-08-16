@@ -1,9 +1,17 @@
+'use client';
+
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import { LogOut } from "lucide-react";
 
 const Header = () => {
+
+    const { data: session } = useSession();
+
     return (
         <header className="flex flex-row py-4 px-5 items-center justify-between">
             <Sheet>
@@ -19,20 +27,36 @@ const Header = () => {
                         </Button>
                     </div>
                 </SheetTrigger>
-                <SheetContent side={"left"} className="py-10 space-y-10 ">
+                <SheetContent side={"left"} className="py-20 space-y-10 ">
                     <SheetHeader >
-                        <span className="font-bold">
+                        <span className="font-bold flex flex-row justify-between items-center">
                             <Link href={"/sign-in"} className="flex items-center gap-3">
                                 <Button variant={"link"} size={"icon"} className="bg-neutral-800 rounded-full flex justify-center items-center w-12 h-12">
-                                    <Image
-                                        src="/user.svg"
-                                        alt="User"
-                                        width={16}
-                                        height={16}
-                                    />
+                                    {session ?
+                                        (
+                                            <Avatar>
+                                                <AvatarImage src={`${session?.user?.image}`} />
+                                            </Avatar>
+
+                                        ) :
+                                        (
+                                            <Image
+                                                src={"/user.svg"}
+                                                alt="User"
+                                                width={16}
+                                                height={16}
+                                                className="bg-cover"
+                                            />
+                                        )}
                                 </Button>
-                                Faça login
+                                {session?.user?.name ? session.user.name : "Faça Login"}
                             </Link>
+                            <Button
+                                variant={"ghost"}
+                                size={"icon"}
+                            >
+                                <LogOut color="red" />
+                            </Button>
                         </span>
                     </SheetHeader>
                     <nav className="flex flex-col gap-3">
