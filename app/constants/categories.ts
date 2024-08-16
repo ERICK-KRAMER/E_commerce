@@ -1,18 +1,18 @@
 let categories = [
     {
         id: 1,
-        name: "MEN",
-        url: "/products/men"
+        name: "Dress",
+        url: "/products/dress"
     },
     {
         id: 2,
-        name: "WOMEN",
-        url: "/products/women"
+        name: "Pants",
+        url: "/products/pants"
     },
     {
         id: 3,
-        name: "KIDS",
-        url: "/products/kids"
+        name: "Short",
+        url: "/products/short"
     }
 ];
 

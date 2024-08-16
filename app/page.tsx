@@ -1,13 +1,19 @@
-import Image from "next/image";
 import { Card } from "./components/card";
 import { Categories } from "./components/categories";
 import { Header } from "./components/header";
 import { Search } from "./components/search";
-import Link from "next/link";
 import { Footer } from "./components/footer";
-import { Button } from "./components/ui/button";
+import { db } from "./service/prismaCliet";
 
-export default function Home() {
+export default async function Home() {
+
+  const product = await db.product.findMany();
+  const product2 = await db.product.findMany({
+    orderBy: {
+      price: "desc"
+    }
+  });
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -22,13 +28,9 @@ export default function Home() {
       </div>
 
       <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {product.map(item => (
+          <Card key={item.id} product={item} />
+        ))}
       </div>
 
       <div className="p-5 flex flex-row items-center gap-1 my-4 font-extrabold">
@@ -36,14 +38,16 @@ export default function Home() {
         <span className="text-blue-900 text-2xl">(50)</span>
       </div>
 
-      <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+      <div className="grid grid-cols-2 p-2 px-4 place-items-center">
+        {product2.map(item => (
+          <Card key={item.id} product={item} />
+        ))}
+      </div>
+
+      {/* <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
+        {Dress.map(item => (
+          <Card key={item.id} product={item} />
+        ))}
       </div>
 
       <div className="p-5 flex flex-row items-center gap-1 my-4 font-extrabold">
@@ -58,23 +62,19 @@ export default function Home() {
       </nav>
 
       <div className="p-2 px-4 flex overflow-auto [&::-webkit-scrollbar]:hidden">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {Short.map(item => (
+          <Card key={item.id} product={item} />
+        ))}
       </div>
 
       <div className="p-5">
         <button>
-          <Link href={"/"} className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold">
+          <Link href={"/products"} className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold">
             Go To Shop
             <Image src={"/chevronRight.svg"} alt="chevron_icon" width={50} height={20} />
           </Link>
         </button>
-      </div>
+      </div> */}
 
       <Footer />
     </div>
