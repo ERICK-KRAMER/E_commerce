@@ -5,10 +5,27 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "../components/ui/input";
 import { EyeOff, Eye } from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function Page() {
+
+    type Inputs = {
+        name: string;
+        email: string;
+        password: string;
+        address: string;
+        cep: string;
+    }
+
     const router = useRouter();
+
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+
+    const { register, handleSubmit } = useForm<Inputs>();
+
+    const Onsubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data);
+    }
 
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
@@ -28,13 +45,14 @@ export default function Page() {
             <div className="p-5 flex flex-col gap-10">
                 <h1 className="font-extrabold text-3xl">Sign up</h1>
 
-                <form className=" flex flex-col gap-2">
+                <form className=" flex flex-col gap-2" onSubmit={handleSubmit(Onsubmit)}>
                     <p className="text-sm font-bold">INFORMATION</p>
 
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
                         placeholder="Email"
                         required
+                        {...register("email")}
                     />
 
                     <div className="relative">
@@ -43,6 +61,7 @@ export default function Page() {
                             placeholder="Password"
                             type={passwordVisible ? "text" : "password"}
                             required
+                            {...register("password")}
                         />
                         {passwordVisible ?
                             <Eye className="absolute top-2 right-2 text-neutral-500 cursor-pointer" onClick={() => setPasswordVisible(prev => !prev)} />
@@ -53,37 +72,23 @@ export default function Page() {
 
                     <p className="text-sm font-bold">SHIPPING ADDRESS</p>
 
-                    <div className="flex gap-2">
-                        <Input
-                            className=" rounded-none border-neutral-300 outline-none"
-                            placeholder="First Name"
-                            required
-                        />
-                        <Input
-                            className=" rounded-none border-neutral-300 outline-none"
-                            placeholder="Last Name"
-                            required
-                        />
-                    </div>
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="Country"
+                        placeholder="Name"
                         required
-                    />
-                    <Input
-                        className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="State/Region"
-                        required
+                        {...register("name")}
                     />
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
                         placeholder="Address"
                         required
+                        {...register("address")}
                     />
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="City"
+                        placeholder="Cep"
                         required
+                        {...register("cep")}
                     />
 
                     <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between my-4">
