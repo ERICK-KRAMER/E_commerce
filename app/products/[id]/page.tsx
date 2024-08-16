@@ -3,6 +3,7 @@ import { db } from "@/app/service/prismaCliet";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 interface ProductPropPage {
     params: {
@@ -18,21 +19,24 @@ export default async function Page({ params }: ProductPropPage) {
         }
     });
 
+    if (!product) {
+        redirect('/');
+        return null;
+    }
 
     return (
         <div className="">
             <header className="p-5 flex justify-center items-center">
-
-                <button
-                    className=""
-                >
-                    <Image
-                        className=" w-16"
-                        src={"/chevronLeft.svg"}
-                        alt="Chevron-left"
-                        width={40}
-                        height={40}
-                    />
+                <button className="">
+                    <Link href={"/"}>
+                        <Image
+                            className=" w-16"
+                            src={"/chevronLeft.svg"}
+                            alt="Chevron-left"
+                            width={40}
+                            height={40}
+                        />
+                    </Link>
                 </button>
 
                 <div className="flex-1 flex justify-end items-center gap-1">
@@ -60,21 +64,37 @@ export default async function Page({ params }: ProductPropPage) {
             <div>
                 <Image
                     className=""
-                    src={product ? product.image[0] : ""}
-                    alt={product ? product.name : ""}
+                    src={product.image[0]}
+                    alt={product.name}
                     width={500}
                     height={600}
                 />
             </div>
 
+            {product.image.length > 1 ? (
+                <div className="flex flex-row justify-center gap-2 p-4">
+                    {product.image.map((item, index) => (
+                        <Link key={index} href={item}>
+                            <Image
+                                src={item}
+                                alt={product.name}
+                                width={50}
+                                height={50}
+                                className="cursor-pointer"
+                            />
+                        </Link>
+                    ))}
+                </div>
+            ) : null}
+
             <div className="flex flex-col p-4">
                 <span className="flex justify-between">
-                    <h3 className="font-extrabold">{product?.name}</h3>
+                    <h3 className="font-extrabold">{product.name}</h3>
                     <Heart />
                 </span>
                 <span className="flex justify-between py-2">
-                    <p className="text-neutral-500">{product?.description}</p>
-                    <p className=" font-bold">$ {Number(product?.price)}</p>
+                    <p className="text-neutral-500">{product.description}</p>
+                    <p className="font-bold">$ {Number(product.price)}</p>
                 </span>
             </div>
 
@@ -86,12 +106,11 @@ export default async function Page({ params }: ProductPropPage) {
                     <span className="cursor-pointer border-neutral-600 border bg-emerald-200 p-5"></span>
                     <span className="cursor-pointer border-neutral-600 border bg-white p-5"></span>
                     <span className="cursor-pointer border-neutral-600 border bg-blue-200 p-5"></span>
-
                 </div>
             </div>
 
             <div className="flex flex-col px-5 pb-5">
-                <h3 className="text-neutral-500">COLOR</h3>
+                <h3 className="text-neutral-500">SIZE</h3>
                 <div className="flex gap-1">
                     <span className="border-2 border-neutral-400 w-12 h-12 flex justify-center items-center cursor-pointer">XS</span>
                     <span className="border-2 border-neutral-400 w-12 h-12 flex justify-center items-center cursor-pointer">S</span>
@@ -105,7 +124,6 @@ export default async function Page({ params }: ProductPropPage) {
             <button className="flex bg-neutral-300 rounded-none p-4 items-center font-semibold justify-center w-full ">
                 ADD
             </button>
-
         </div>
     )
 }
