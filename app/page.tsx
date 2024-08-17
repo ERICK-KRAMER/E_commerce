@@ -3,7 +3,7 @@ import { Categories } from "./components/categories";
 import { Header } from "./components/header";
 import { Search } from "./components/search";
 import { Footer } from "./components/footer";
-import { db } from "./service/prismaCliet";
+import { db } from "./service/prismaClient";
 import Link from "next/link";
 
 export default async function Home() {

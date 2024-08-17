@@ -41,8 +41,9 @@ export default function Page() {
         return null;
     }
 
-    const Onsubmit: SubmitHandler<LoginSchema> = (data: any) => {
+    const Onsubmit: SubmitHandler<LoginSchema> = async (data: any) => {
         console.log(data);
+        // Aqui você pode chamar sua API para fazer o login
     }
 
     return (
