@@ -8,19 +8,26 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const loginSchema = z.object({
+    email: z.string().email("Invalid email").min(1, "Email is required"),
+    password: z.string().min(8, "Password must be at least 8 characters").
+        max(50, "Password must be at most 50 characters"),
+});
+
+type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function Page() {
-
-    type Inputs = {
-        email: string;
-        password: string;
-    };
 
     const { data: session, status } = useSession();
 
     const router = useRouter();
 
-    const { register, handleSubmit } = useForm<Inputs>();
+    const { register, handleSubmit } = useForm<LoginSchema>({
+        resolver: zodResolver(loginSchema),
+    });
 
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
@@ -34,7 +41,7 @@ export default function Page() {
         return null;
     }
 
-    const Onsubmit: SubmitHandler<Inputs> = (data: any) => {
+    const Onsubmit: SubmitHandler<LoginSchema> = (data: any) => {
         console.log(data);
     }
 

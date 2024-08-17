@@ -5,25 +5,31 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "../components/ui/input";
 import { EyeOff, Eye } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+
+const createUserSchema = z.object({
+    name: z.string().min(3),
+    email: z.string().email(),
+    password: z.string().min(8),
+    address: z.string().min(8),
+    cep: z.string().min(8)
+});
+
+type CreateUserSchema = z.infer<typeof createUserSchema>;
 
 export default function Page() {
-
-    type Inputs = {
-        name: string;
-        email: string;
-        password: string;
-        address: string;
-        cep: string;
-    }
 
     const router = useRouter();
 
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
-    const { register, handleSubmit } = useForm<Inputs>();
+    const { register, handleSubmit } = useForm<CreateUserSchema>({
+        resolver: zodResolver(createUserSchema),
+    });
 
-    const Onsubmit: SubmitHandler<Inputs> = (data) => {
+    const Onsubmit: SubmitHandler<CreateUserSchema> = (data) => {
         console.log(data);
     }
 
