@@ -45,8 +45,6 @@ export default function Page() {
         console.log(data);
     }
 
-    console.log(session);
-
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
 
