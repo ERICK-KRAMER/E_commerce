@@ -10,6 +10,9 @@ import { useSession, signIn } from "next-auth/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../feature/user/userSlice";
+import { RootState } from "../store";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email").min(1, "Email is required"),
@@ -23,7 +26,11 @@ export default function Page() {
 
     const { data: session, status } = useSession();
 
+    const user = useSelector((state: RootState) => state.user);
+
     const router = useRouter();
+
+    const dispatch = useDispatch();
 
     const { register, handleSubmit } = useForm<LoginSchema>({
         resolver: zodResolver(loginSchema),
@@ -40,10 +47,17 @@ export default function Page() {
         router.push('/');
         return null;
     }
-    const Onsubmit: SubmitHandler<LoginSchema> = async (data: LoginSchema) => {
+
+    if (user.user) {
+        // Redirecionar para outra página se o usuário já estiver logado
+        router.push('/');
+        return null;
+    }
+
+    const onSubmit: SubmitHandler<LoginSchema> = async (data: LoginSchema) => {
         try {
             // Chamada da API para fazer o login
-            const response = await fetch("api/user/signin", {
+            const response = await fetch("/api/user/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -57,14 +71,15 @@ export default function Page() {
 
             const responseData = await response.json();
 
+            dispatch(setUser(responseData.user));
+
             console.log(responseData);
 
-            router.push("/")
+            router.push("/");
         } catch (error) {
             console.error("An error occurred:", error);
         }
     };
-
 
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
@@ -87,7 +102,7 @@ export default function Page() {
 
                 <form
                     className="flex flex-col gap-2"
-                    onSubmit={handleSubmit(Onsubmit)}
+                    onSubmit={handleSubmit(onSubmit)}
                 >
                     <p className="text-sm font-bold">INFORMATION</p>
 

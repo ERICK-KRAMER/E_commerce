@@ -2,7 +2,7 @@ import { Card } from "@/app/components/card";
 import { Footer } from "@/app/components/footer";
 import { Header } from "@/app/components/header";
 import { Search } from "@/app/components/search";
-import { db } from "@/app/service/prismaCliet";
+import { db } from "@/app/service/prismaClient";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 

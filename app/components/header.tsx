@@ -7,10 +7,12 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { LogOut } from "lucide-react";
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const Header = () => {
-
     const { data: session } = useSession();
+    const user = useSelector((state: RootState) => state.user.user?.name);
 
     return (
         <header className="flex flex-row py-4 px-5 items-center justify-between">
@@ -32,24 +34,21 @@ const Header = () => {
                         <span className="font-bold flex flex-row justify-between items-center">
                             <Link href={"/sign-in"} className="flex items-center gap-3">
                                 <Button variant={"link"} size={"icon"} className="bg-neutral-800 rounded-full flex justify-center items-center w-12 h-12">
-                                    {session ?
-                                        (
-                                            <Avatar>
-                                                <AvatarImage src={`${session?.user?.image}`} />
-                                            </Avatar>
-
-                                        ) :
-                                        (
-                                            <Image
-                                                src={"/user.svg"}
-                                                alt="User"
-                                                width={16}
-                                                height={16}
-                                                className="bg-cover"
-                                            />
-                                        )}
+                                    {session ? (
+                                        <Avatar>
+                                            <AvatarImage src={`${session?.user?.image}`} />
+                                        </Avatar>
+                                    ) : (
+                                        <Image
+                                            src={"/user.svg"}
+                                            alt="User"
+                                            width={16}
+                                            height={16}
+                                            className="bg-cover"
+                                        />
+                                    )}
                                 </Button>
-                                {session?.user?.name ? session.user.name : "Faça Login"}
+                                {session?.user?.name || user || "Faça Login"}
                             </Link>
                             {session ? (
                                 <Button
