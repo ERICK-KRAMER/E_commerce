@@ -43,7 +43,7 @@ model User {
   emailVerified DateTime? @map("email_verified")
   password      String?
   image         String?
-  address       String?
+  number        Int?
   cep           String?
   accounts      Account[]
   sessions      Session[]

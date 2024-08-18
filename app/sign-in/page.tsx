@@ -40,11 +40,29 @@ export default function Page() {
         router.push('/');
         return null;
     }
-
     const Onsubmit: SubmitHandler<LoginSchema> = async (data: any) => {
         console.log(data);
-        // Aqui você pode chamar sua API para fazer o login
-    }
+        try {
+            // Chamada da API para fazer o login
+            const response = await fetch("api/user/signin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log(responseData);
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
+    };
+
 
     return (
         <div className="flex flex-col justify-center min-h-screen relative">
@@ -63,7 +81,7 @@ export default function Page() {
             </button>
 
             <div className="p-5 flex flex-col gap-2">
-                <h1 className="font-extrabold text-3xl">Sign up</h1>
+                <h1 className="font-extrabold text-3xl">Sign In</h1>
 
                 <form
                     className="flex flex-col gap-2"

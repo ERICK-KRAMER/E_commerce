@@ -12,25 +12,40 @@ import { z } from "zod";
 const createUserSchema = z.object({
     name: z.string().min(3),
     email: z.string().email(),
-    password: z.string().min(8),
-    address: z.string().min(8),
-    cep: z.string().min(8)
+    password: z.string().min(2),
+    number: z.number().int(),
+    cep: z.string().min(2)
 });
 
 type CreateUserSchema = z.infer<typeof createUserSchema>;
 
 export default function Page() {
-
     const router = useRouter();
 
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
-    const { register, handleSubmit } = useForm<CreateUserSchema>({
+    const { register, handleSubmit, formState: { errors } } = useForm<CreateUserSchema>({
         resolver: zodResolver(createUserSchema),
     });
 
-    const Onsubmit: SubmitHandler<CreateUserSchema> = (data) => {
+    const Onsubmit: SubmitHandler<CreateUserSchema> = async (data) => {
         console.log(data);
+
+        const response = await fetch("/api/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            router.push("/login");
+        } else {
+            const errorData = await response.json();
+            console.error("Signup error:", errorData);
+
+        }
     }
 
     return (
@@ -60,6 +75,7 @@ export default function Page() {
                         required
                         {...register("email")}
                     />
+                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
                     <div className="relative">
                         <Input
@@ -74,9 +90,8 @@ export default function Page() {
                             :
                             <EyeOff className="absolute top-2 right-2 text-neutral-500 cursor-pointer" onClick={() => setPasswordVisible(prev => !prev)} />
                         }
+                        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                     </div>
-
-                    <p className="text-sm font-bold">SHIPPING ADDRESS</p>
 
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
@@ -84,18 +99,25 @@ export default function Page() {
                         required
                         {...register("name")}
                     />
-                    <Input
-                        className=" rounded-none border-neutral-300 outline-none"
-                        placeholder="Address"
-                        required
-                        {...register("address")}
-                    />
+                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
+                    <p className="text-sm font-bold">SHIPPING ADDRESS</p>
+
                     <Input
                         className=" rounded-none border-neutral-300 outline-none"
                         placeholder="Cep"
                         required
                         {...register("cep")}
                     />
+                    {errors.cep && <p className="text-red-500">{errors.cep.message}</p>}
+                    <Input
+                        className=" rounded-none border-neutral-300 outline-none"
+                        placeholder="Number"
+                        type="number"
+                        required
+                        {...register("number", { valueAsNumber: true })}
+                    />
+                    {errors.number && <p className="text-red-500">{errors.number.message}</p>}
 
                     <button className="flex flex-row gap-3 bg-neutral-300 rounded-none p-3 items-center font-semibold justify-between my-4">
                         Submit
@@ -104,7 +126,6 @@ export default function Page() {
 
                 </form>
             </div>
-
         </div>
-    )
+    );
 }
