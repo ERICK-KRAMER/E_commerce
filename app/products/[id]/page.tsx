@@ -1,5 +1,5 @@
 import { Button } from "@/app/components/ui/button";
-import { db } from "@/app/service/prismaCliet";
+import { db } from "@/app/service/prismaClient";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
