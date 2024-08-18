@@ -1,33 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import userReducer from "@/app/feature/user/userSlice";
+import cartReducer from "@/app/feature/cart/cartSlice";
 
-interface ItemProps {
-    id: number;
-    name: string;
-    decription: string;
-    price: number;
-}
-
-interface CartStore {
-    items: ItemProps[]
-}
-
-const cartSlice = createSlice({
-    name: 'cart',
-    initialState,
-    reducers: {
-        addItem(state, action) { },
-        removeItem(state, action) { },
-    }
-});
 
 export const store = configureStore({
     reducer: {
         // Add your reducers here
-
+        user: userReducer,
+        cart: cartReducer,
     }
 });
-
 
 export type RootState = ReturnType<typeof store.getState>;
 
