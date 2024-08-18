@@ -7,12 +7,26 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { LogOut } from "lucide-react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { clearUser } from "../feature/user/userSlice";
 
 const Header = () => {
     const { data: session } = useSession();
+
     const user = useSelector((state: RootState) => state.user.user?.name);
+
+    const dispatch = useDispatch();
+
+    const handlerLoguot = () => {
+        if (session) {
+            signOut();
+        }
+        if (user) {
+            dispatch(clearUser());
+            window.location.reload();
+        }
+    }
 
     return (
         <header className="flex flex-row py-4 px-5 items-center justify-between">
@@ -50,11 +64,11 @@ const Header = () => {
                                 </Button>
                                 {session?.user?.name || user || "Faça Login"}
                             </Link>
-                            {session ? (
+                            {session || user ? (
                                 <Button
                                     variant={"ghost"}
                                     size={"icon"}
-                                    onClick={() => signOut()}
+                                    onClick={handlerLoguot}
                                 >
                                     <LogOut color="red" />
                                 </Button>

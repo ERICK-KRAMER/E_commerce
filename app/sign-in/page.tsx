@@ -65,15 +65,14 @@ export default function Page() {
                 body: JSON.stringify(data),
             });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-
             const responseData = await response.json();
 
-            dispatch(setUser(responseData.user));
+            if (!response.ok) {
+                alert("Email or Password incorrect!");
+                throw new Error(responseData.message || "Erro ao fazer login");
+            }
 
-            console.log(responseData);
+            dispatch(setUser(responseData.user));
 
             router.push("/");
         } catch (error) {
