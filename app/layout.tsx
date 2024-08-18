@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { GoogleProvider } from "./lib/GoogleProvider";
+import { StoreContextProvider } from "./service/storeContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <GoogleProvider>
-          {children}
+          <StoreContextProvider>
+            {children}
+          </StoreContextProvider>
         </GoogleProvider>
       </body>
     </html>
