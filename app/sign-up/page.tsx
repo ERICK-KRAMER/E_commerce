@@ -28,7 +28,7 @@ export default function Page() {
         resolver: zodResolver(createUserSchema),
     });
 
-    const Onsubmit: SubmitHandler<CreateUserSchema> = async (data) => {
+    const Onsubmit: SubmitHandler<CreateUserSchema> = async (data: CreateUserSchema) => {
         console.log(data);
 
         const response = await fetch("/api/auth/signup", {

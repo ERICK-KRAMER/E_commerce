@@ -40,8 +40,7 @@ export default function Page() {
         router.push('/');
         return null;
     }
-    const Onsubmit: SubmitHandler<LoginSchema> = async (data: any) => {
-        console.log(data);
+    const Onsubmit: SubmitHandler<LoginSchema> = async (data: LoginSchema) => {
         try {
             // Chamada da API para fazer o login
             const response = await fetch("api/user/signin", {
@@ -57,7 +56,10 @@ export default function Page() {
             }
 
             const responseData = await response.json();
+
             console.log(responseData);
+
+            router.push("/")
         } catch (error) {
             console.error("An error occurred:", error);
         }
